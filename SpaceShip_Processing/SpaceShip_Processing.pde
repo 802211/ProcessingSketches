@@ -1,6 +1,7 @@
 
  //SpaceShip s = new SpaceShip(250,750);
-    SpaceShip s = new SpaceShip(250,750);
+  
+    ArrayList <Bullet> arrayOfBullets = new ArrayList <Bullet>();
 
  class SpaceShip{
     int X;
@@ -36,11 +37,46 @@ this.Y=Y;
  Bullet(int bX, int bY){
 this.bX=bX;
 this.bY=bY;
-}
- 
- 
- 
  }
+ 
+int getbX(){
+return this.bX;
+}
+void setbX(int bX){
+this.bX = bX;
+}
+int getbY(){
+return this.bY;
+}
+void setbY(int bY){
+this.bY = bY;
+}
+void moveY(){
+bY = bY - 5;
+}
+ void display(){
+     stroke(255);
+    point(bX,bY);
+}
+
+}
+
+
+
+ void moveAllBullets(){
+for(Bullet b:arrayOfBullets){
+b.moveY();
+}
+ }
+ void displayAllBullets(){
+ for(Bullet b:arrayOfBullets){
+ b.display();
+ }
+ } 
+ SpaceShip s = new SpaceShip(250,750);
+ 
+ 
+ 
  void keyPressed()
 {
   if(key == CODED){
@@ -55,6 +91,17 @@ this.bY=bY;
       s.setX(s.getX()-20);
       }
 }
+ else if(keyPressed && key == ' ')
+  {
+    //create a new bullet object
+ 
+    Bullet b = new Bullet(s.getX(),s.getY());
+
+
+    //add it to the arraylist
+   arrayOfBullets.add(b);
+  }
+
  }
  
 void JailSpaceShip(){
@@ -73,8 +120,9 @@ size(500,800);
 }
 void draw(){
 background(0,0,175);
-  s.display();
+s.display();
  JailSpaceShip();
-
-  
+displayAllBullets(); 
+moveAllBullets();
+ 
 }
